@@ -4,6 +4,7 @@ from models.user import User
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestUser(unittest.TestCase):
     """Comprehensive tests for the User class."""
 
@@ -16,7 +17,7 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(self.user, BaseModel)
 
     def test_default_attributes(self):
-        """User defaults: email, password, first_name, last_name all exist and are empty strings."""
+        """User attributes default to empty strings"""
         for attr in ("email", "password", "first_name", "last_name"):
             self.assertTrue(hasattr(self.user, attr))
             self.assertEqual(getattr(self.user, attr), "")
@@ -42,6 +43,7 @@ class TestUser(unittest.TestCase):
         self.user.save()
         self.assertNotEqual(self.user.updated_at, old)
         self.assertGreater(self.user.updated_at, old)
+
 
 if __name__ == "__main__":
     unittest.main()

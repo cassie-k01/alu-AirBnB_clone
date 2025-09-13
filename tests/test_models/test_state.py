@@ -4,6 +4,7 @@ from models.state import State
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestState(unittest.TestCase):
     """Unit tests for the State class."""
 
@@ -42,6 +43,7 @@ class TestState(unittest.TestCase):
         self.state.save()
         self.assertNotEqual(self.state.updated_at, old_updated)
         self.assertGreater(self.state.updated_at, old_updated)
+
 
 if __name__ == "__main__":
     unittest.main()

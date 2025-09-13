@@ -9,6 +9,7 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from console import HBNBCommand
 
+
 class TestHBNBCommand(unittest.TestCase):
     def setUp(self):
         """Set up the test environment"""
@@ -35,7 +36,7 @@ class TestHBNBCommand(unittest.TestCase):
         model = BaseModel()
         model.save()
         model_id = model.id
-        
+
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             self.console.onecmd(f"show BaseModel {model_id}")
             output = fake_out.getvalue().strip()
@@ -46,7 +47,7 @@ class TestHBNBCommand(unittest.TestCase):
         model = BaseModel()
         model.save()
         model_id = model.id
-        
+
         self.console.onecmd(f"destroy BaseModel {model_id}")
         self.assertNotIn(f"BaseModel.{model_id}", self.storage.all())
 
@@ -54,7 +55,7 @@ class TestHBNBCommand(unittest.TestCase):
         """Test all command"""
         model = BaseModel()
         model.save()
-        
+
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             self.console.onecmd("all BaseModel")
             output = fake_out.getvalue().strip()
@@ -66,11 +67,11 @@ class TestHBNBCommand(unittest.TestCase):
         model.save()
         model_id = model.id
         self.console.onecmd(f"update BaseModel {model_id} first_name \"John\"")
-        
+
         # Verify the update
         updated_model = self.storage.all()[f"BaseModel.{model_id}"]
         self.assertEqual(updated_model.first_name, "John")
 
+
 if __name__ == '__main__':
     unittest.main()
-

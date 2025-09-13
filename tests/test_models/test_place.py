@@ -4,6 +4,7 @@ from models.place import Place
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestPlace(unittest.TestCase):
     """Unit tests for the Place class."""
 
@@ -55,6 +56,7 @@ class TestPlace(unittest.TestCase):
         self.place.save()
         self.assertNotEqual(self.place.updated_at, old_updated)
         self.assertGreater(self.place.updated_at, old_updated)
+
 
 if __name__ == "__main__":
     unittest.main()

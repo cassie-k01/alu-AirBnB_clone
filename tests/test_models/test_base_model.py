@@ -19,7 +19,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.model.updated_at, datetime)
 
     def test_to_dict(self):
-        """Test that to_dict method returns a dictionary with correct attributes."""
+        """Test that to_dict method gives a dict with the right attributes."""
         model_dict = self.model.to_dict()
         self.assertIn('__class__', model_dict)
         self.assertEqual(model_dict['__class__'], 'BaseModel')
@@ -45,7 +45,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(old_updated_at, self.model.updated_at)
 
     def test_kwargs_initialization(self):
-        """Test creating a new instance using kwargs (dictionary representation)."""
+        """Test creating a new instance using kwargs """
         model_dict = self.model.to_dict()
         new_model = BaseModel(**model_dict)
         self.assertEqual(new_model.id, self.model.id)
@@ -57,4 +57,3 @@ class TestBaseModel(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

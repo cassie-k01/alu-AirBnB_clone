@@ -4,6 +4,7 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestAmenity(unittest.TestCase):
     """Unit tests for the Amenity class."""
 
@@ -42,6 +43,7 @@ class TestAmenity(unittest.TestCase):
         self.amenity.save()
         self.assertNotEqual(self.amenity.updated_at, old_updated)
         self.assertGreater(self.amenity.updated_at, old_updated)
+
 
 if __name__ == "__main__":
     unittest.main()

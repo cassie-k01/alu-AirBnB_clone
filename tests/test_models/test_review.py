@@ -4,6 +4,7 @@ from models.review import Review
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestReview(unittest.TestCase):
     """Unit tests for the Review class."""
 
@@ -16,7 +17,7 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(self.review, BaseModel)
 
     def test_default_attributes(self):
-        """Review defaults: place_id, user_id, text all exist and are empty strings."""
+        """Review has default empty strings for place_id, user_id,and text."""
         attrs = {
             "place_id": str,
             "user_id": str,
@@ -48,6 +49,7 @@ class TestReview(unittest.TestCase):
         self.review.save()
         self.assertNotEqual(self.review.updated_at, old_updated)
         self.assertGreater(self.review.updated_at, old_updated)
+
 
 if __name__ == "__main__":
     unittest.main()

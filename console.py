@@ -19,6 +19,7 @@ classes = {
     "Review": Review
 }
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
@@ -72,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, arg):
-        """Print all string representations of instances, optionally filtered by class."""
+        """Print all instance strings, optionally by class """
         args = shlex.split(arg)
         objs = storage.all().values()
         if args and args[0] not in classes:
@@ -133,6 +134,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the console."""
         return True
+
 
 if __name__ == "__main__":
     storage.reload()

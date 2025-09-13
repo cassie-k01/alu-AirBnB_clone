@@ -4,6 +4,7 @@ from models.city import City
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestCity(unittest.TestCase):
     """Unit tests for the City class."""
 
@@ -16,7 +17,7 @@ class TestCity(unittest.TestCase):
         self.assertIsInstance(self.city, BaseModel)
 
     def test_default_attributes(self):
-        """City should have 'state_id' and 'name' defaulting to empty strings."""
+        """City requires 'state_id' and 'name' with empty string defaults."""
         self.assertTrue(hasattr(self.city, "state_id"))
         self.assertTrue(hasattr(self.city, "name"))
         self.assertEqual(self.city.state_id, "")
@@ -44,6 +45,7 @@ class TestCity(unittest.TestCase):
         self.city.save()
         self.assertNotEqual(self.city.updated_at, old_updated)
         self.assertGreater(self.city.updated_at, old_updated)
+
 
 if __name__ == "__main__":
     unittest.main()
