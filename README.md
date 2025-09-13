@@ -1,4 +1,4 @@
-# 🏠 AirBnB Clone - The Console
+# AirBnB Clone - The Console
 
 This is the initial phase of the AirBnB clone project. The goal is to build a command-line interpreter that manages backend objects like users, places, cities, and more.
 
