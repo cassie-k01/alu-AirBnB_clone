@@ -1,41 +1,48 @@
 #!/usr/bin/python3
-import json
+
+import unittest
 import os
-from models.base_model import BaseModel   # import your model(s) here
+import json
+from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
 
 
-class FileStorage:
-    __file_path = "file.json"
-    __objects = {}
+class TestFileStorage(unittest.TestCase):
+    def setUp(self):
+        """Set up test environment"""
+        self.storage = FileStorage()
+        self.model = BaseModel()
+        self.storage.new(self.model)
+        self.test_file = "file.json"
 
-    # Dictionary to map class names to classes
-    classes = {
-        "BaseModel": BaseModel,
-        # later, you can add "User": User, etc.
-    }
+    def tearDown(self):
+        """Clean up after tests"""
+        if os.path.exists(self.test_file):
+            os.remove(self.test_file)
+        FileStorage._FileStorage__objects = {}
 
-    def all(self):
-        """Returns the dictionary __objects."""
-        return FileStorage.__objects
+    def test_all_returns_dict(self):
+        """Test that all() returns a dictionary"""
+        self.assertIsInstance(self.storage.all(), dict)
 
-    def new(self, obj):
-        """Adds a new object to the __objects dictionary."""
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        FileStorage.__objects[key] = obj
+    def test_new_adds_object(self):
+        """Test that new() adds an object to __objects"""
+        key = f"BaseModel.{self.model.id}"
+        self.assertIn(key, self.storage.all())
 
-    def save(self):
-        """Saves the __objects to a JSON file."""
-        with open(FileStorage.__file_path, 'w') as f:
-            json.dump({key: obj.to_dict()
-                      for key, obj in FileStorage.__objects.items()}, f)
+    def test_save_creates_file(self):
+        """Test that save() creates file.json"""
+        self.storage.save()
+        self.assertTrue(os.path.exists(self.test_file))
 
-    def reload(self):
-        """Loads the objects from the JSON file, if it exists."""
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, 'r') as f:
-                objects = json.load(f)
-                for key, value in objects.items():
-                    cls_name = value['__class__']
-                    cls = self.classes.get(cls_name)
-                    if cls:   # only recreate if class is known
-                        self.new(cls(**value))
+    def test_reload_restores_objects(self):
+        """Test that reload() repopulates __objects"""
+        self.storage.save()
+        FileStorage._FileStorage__objects = {}  # Clear manually
+        self.storage.reload()
+        key = f"BaseModel.{self.model.id}"
+        self.assertIn(key, self.storage.all())
+
+
+if __name__ == "__main__":
+    unittest.main()
