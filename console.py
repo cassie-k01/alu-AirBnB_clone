@@ -4,6 +4,7 @@ import cmd
 import shlex
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
@@ -12,13 +13,13 @@ from models.review import Review
 
 classes = {
     "BaseModel": BaseModel,
+    "User": User,
     "State": State,
     "City": City,
     "Amenity": Amenity,
     "Place": Place,
     "Review": Review
 }
-
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
@@ -73,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, arg):
-        """Print all instance strings, optionally by class """
+        """Print all instance strings, optionally by class"""
         args = shlex.split(arg)
         objs = storage.all().values()
         if args and args[0] not in classes:
@@ -87,7 +88,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """Update an instance by adding or updating attribute."""
-        args = shlex.split(arg)
+        try:
+            args = shlex.split(arg)
+        except ValueError:
+            print("** Invalid command format **")
+            return
+
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -110,7 +116,6 @@ class HBNBCommand(cmd.Cmd):
             return
 
         attr_name, attr_val = args[2], args[3]
-        # Type casting for int/float if possible
         try:
             if hasattr(obj, attr_name):
                 current_type = type(getattr(obj, attr_name))
@@ -134,7 +139,6 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the console."""
         return True
-
 
 if __name__ == "__main__":
     storage.reload()
