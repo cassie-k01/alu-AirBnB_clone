@@ -6,6 +6,7 @@ import json
 from models import storage
 from models.base_model import BaseModel
 
+
 class TestFileStorage(unittest.TestCase):
     def setUp(self):
         """Set up test environment"""
@@ -39,6 +40,7 @@ class TestFileStorage(unittest.TestCase):
         storage.reload()
         key = f"BaseModel.{self.model.id}"
         self.assertIn(key, storage.all())
+
 
 if __name__ == "__main__":
     unittest.main()

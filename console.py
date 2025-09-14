@@ -21,6 +21,7 @@ classes = {
     "Review": Review
 }
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
@@ -139,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the console."""
         return True
+
 
 if __name__ == "__main__":
     storage.reload()

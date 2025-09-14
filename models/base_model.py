@@ -4,6 +4,7 @@ import models
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
     def __init__(self, *args, **kwargs):
         if kwargs:
